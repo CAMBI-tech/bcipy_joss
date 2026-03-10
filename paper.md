@@ -91,6 +91,14 @@ A large portion of the noninvasive BCI field is build on the BCI2000 software [@
 
 Additional more recent Python packages such as PyBCI [@Booth:2023], MetaBCI [Mei:2024], and PyNoetic [Singh:2025] implement functionality for EEG signal acquisition and modeling, detection of motion and interference artifacts, and interface control through BCIs. However, they still lack the multimodal fusion and language modeling support we present in BciPy.
 
+# Research impact statement
+
+BciPy repository made BCI research more accessible through a modular, extensible, real-time Python interface designed for practical use and reproducible experimentation. The software and accompanying documentation have been released publicly, allowing researchers to directly run the system and adapt the interface for their own BCI studies by adding new paradigms and processing methods. The repository includes example pipelines, standardized data handling utilities, and integration with common Python scientific libraries, which has helped lower the technical barrier for working with neural signals in real time.
+
+Evidence of use is reflected in 76,000 estimated downloads, repository activity (145 stars), and 39 external forks that adapt the interface for related BCI experiments and prototyping workflows. The BciPy Python library has also been used internally and by collaborators to build and test closed-loop BCI applications, demonstrating that the interface is stable enough for real experimental setups rather than only proof-of-concept demonstrations. There are more than 10 peer-reviewed publications that have used BciPy in experimental control and clinical studies (Please review `README.md` for publications through 2025). 
+
+BciPy is positioned for near-term impact within the BCI community due to its emphasis on reproducibility, clear documentation, and compatibility with common hardware (Wearable Sensing, Tobii), software (Linux, Windows and MacOS) and analysis tools. By providing a simple and extensible interface for neural data acquisition and control, our work helps accelerate rapid prototyping and experimental iteration in BCI research.
+
 # BciPy Overview
 
 BciPy is designed for ease of use and flexibility, supporting installation on the latest versions of macOS, Linux, and Windows. Step-by-step installation instructions are provided in the documentation, and reproducible builds are demonstrated via GitHub Actions workflows (`.github/workflows/main.yml`). Each submodule includes its own `README.md`, runnable demos, and unit tests to help users get started. Users can interact with BciPy through the client interface, by importing the package in Python, or via the PyQt6-based GUI (`BCInterface.py`, see Figure 1). The choice of interface depends on the user's coding experience and the level of customization required for their experiments.
