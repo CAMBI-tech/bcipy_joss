@@ -85,13 +85,13 @@ Since its initial public release [@Memmott:2021], BciPy has gained wide adoption
 
 Current trends in BCI research include increased interest in multimodal signal acquisition and integration, as well as the use of advanced modeling techniques to improve classification and inference. The scientific community is also prioritizing data practices that follow the FAIR principles — Findable, Accessible, Interoperable, and Reusable [@Wilkinson:2016] — which BciPy 2.0 is built to support. Additionally, some dependencies and Python versions used in BciPy 1.0 are now deprecated or incompatible with modern tools. Future releases will continue to enhance interoperability with popular scientific libraries and features, and provide expanded support for experiment management.
 
-# State of the field
+# State of the Field
 
 A large portion of the noninvasive BCI field is build on the BCI2000 software [@Schalk:2004]. Written in C++, BCI2000 provides a framework for a broad range of BCI applications, such as computer cursor control and text input. OpenViBE [@Renard:2010] provides a modular BCI framework, with similar goals to BCI2000, but with added support and tools for virtual reality (VR) integration. Meanwhile, BciPy focuses specifically on the text input and communication application, with BciPy 2.0 including expanded functionality such as support for multimodal data acquisition and language modeling.
 
 Additional more recent Python packages such as PyBCI [@Booth:2023], MetaBCI [Mei:2024], and PyNoetic [Singh:2025] implement functionality for EEG signal acquisition and modeling, detection of motion and interference artifacts, and interface control through BCIs. However, they still lack the multimodal fusion and language modeling support we present in BciPy.
 
-# Research impact statement
+# Research Impact Statement
 
 BciPy repository made BCI research more accessible through a modular, extensible, real-time Python interface designed for practical use and reproducible experimentation. The software and accompanying documentation have been released publicly, allowing researchers to directly run the system and adapt the interface for their own BCI studies by adding new paradigms and processing methods. The repository includes example pipelines, standardized data handling utilities, and integration with common Python scientific libraries, which has helped lower the technical barrier for working with neural signals in real time.
 
