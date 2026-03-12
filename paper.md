@@ -197,4 +197,4 @@ The manuscript was written by the authors with the assistance of AI tools, inclu
 
 # Acknowledgements
 
-We’d like to thank those who helped throughout the refactor, including Aida Fakhry, Ian Jackson, Julia Gangemi, Tales Imbiriba, Emma Sombers, Georgios Stratis, David Smith, Shijia Liu, Barry Oken, Deniz Erdogmus, Betts Peters, and Melanie Fried-Oken. In addition, we thank Steven Bedricks for his architectural and general advice on this significant update. This work was supported by NIH R01DC009834. Authors report no conflicts of interest.
+We’d like to thank those who helped throughout the refactor, including Aida Fakhry, Ian Jackson, Julia Gangemi, Tales Imbiriba, Emma Sombers, Georgios Stratis, David Smith, Shijia Liu, Barry Oken, Deniz Erdogmus, Betts Peters, and Melanie Fried-Oken. In addition, we thank Steven Bedricks for his architectural and general advice on this significant update. This work was supported by NIH R01DC009834 and NSF IIS-1750193. Authors report no conflicts of interest.
