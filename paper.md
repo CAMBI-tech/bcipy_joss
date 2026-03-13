@@ -54,6 +54,7 @@ authors:
   equal-contrib: true
   affiliation: 4
 - name: Keith Vertanen
+  orcid: 0000-0002-7814-2450
   equal-contrib: true
   affiliation: 5
 
@@ -88,17 +89,17 @@ Current trends in BCI research include increased interest in multimodal signal a
 
 # State of the Field
 
-A large portion of the noninvasive BCI field is build on the BCI2000 software [@Schalk:2004]. Written in C++, BCI2000 provides a framework for a broad range of BCI applications, such as computer cursor control and text input. OpenViBE [@Renard:2010] provides a modular BCI framework, with similar goals to BCI2000, but with added support and tools for virtual reality (VR) integration. Meanwhile, BciPy focuses specifically on the text input and communication application, with BciPy 2.0 including expanded functionality such as support for multimodal data acquisition and language modeling.
+A large portion of the noninvasive BCI field is build on the BCI2000 software [@Schalk:2004]. Written in C++, BCI2000 provides a framework for a broad range of BCI applications, such as computer cursor control and text input. OpenViBE [@Renard:2010] provides a modular BCI framework, with similar goals to BCI2000, but with added support and tools for virtual reality (VR) integration. Meanwhile, BciPy focuses specifically on the application of text input for communication, with BciPy 2.0 including expanded functionality such as support for multimodal data acquisition and language modeling.
 
 Additional more recent Python packages such as PyBCI [@Booth:2023], MetaBCI [@Mei:2024], and PyNoetic [@Singh:2025] implement functionality for EEG signal acquisition and modeling, detection of motion and interference artifacts, and interface control through BCIs. However, they still lack the multimodal fusion and language modeling support we present in BciPy.
 
 # Research Impact Statement
 
-BciPy repository made BCI research more accessible through a modular, extensible, real-time Python interface designed for practical use and reproducible experimentation. The software and accompanying documentation have been released publicly, allowing researchers to directly run the system and adapt the interface for their own BCI studies by adding new paradigms and processing methods. The repository includes example pipelines, standardized data handling utilities, and integration with common Python scientific libraries, which has helped lower the technical barrier for working with neural signals in real time.
+The BciPy repository has made BCI research more accessible through a modular, extensible, real-time Python interface designed for practical use and reproducible experimentation. The software and accompanying documentation have been released publicly, allowing researchers to directly run the system and adapt the interface for their own BCI studies by adding new paradigms and processing methods. The repository includes example pipelines, standardized data handling utilities, and integration with common Python scientific libraries, which has helped lower the technical barrier for working with neural signals in real time.
 
-Evidence of use is reflected in 76,000 estimated downloads, repository activity (145 stars), and 39 external forks that adapt the interface for related BCI experiments and prototyping workflows. The BciPy Python library has also been used internally by 18 developers and by collaborators to build and test closed-loop BCI applications, demonstrating that the interface is stable enough for real experimental setups rather than only proof-of-concept demonstrations. Since its initial public release [@Memmott:2021], BciPy has gained wide adoption in the BCI community, with 134 GitHub stars, approximately 30 citations (26 via ResearchGate and Google Scholar, and four from preprints). The Python BCI ecosystem has also grown, with several complementary libraries released or updated [@Zhu:2024; @Booth:2023; @Singh:2025; @Mei:2024]. Early adoption of BciPy 2.0 is evident, with five published studies utilizing its redesigned architecture already. There are more than 10 peer-reviewed publications that have used BciPy in control and clinical studies (Please review `README.md` for publications through 2025).
+Evidence of use is reflected in 76,000 estimated downloads, repository activity (145 stars), and 39 external forks that adapt the interface for related BCI experiments and prototyping workflows. The BciPy Python library has also been used internally by 18 developers and by collaborators to build and test closed-loop BCI applications, demonstrating that the interface is stable enough for real experimental setups rather than only proof-of-concept demonstrations. Since its initial public release [@Memmott:2021], BciPy has gained wide adoption in the BCI community, with 134 GitHub stars, approximately 30 citations (26 via ResearchGate and Google Scholar, and four from preprints). There are also more than 10 peer-reviewed publications that have used BciPy in control and clinical studies (Please review `README.md` for publications through 2025). Early adoption of BciPy 2.0 is evident, with five published studies utilizing its redesigned architecture as of March 2026. The Python BCI ecosystem has also grown, with several complementary libraries released or updated [@Zhu:2024; @Booth:2023; @Singh:2025; @Mei:2024].
 
-BciPy is positioned for near-term impact within the BCI community due to its emphasis on reproducibility, clear documentation, and compatibility with common hardware (Wearable Sensing, Tobii), software (Linux, Windows and MacOS) and analysis tools. By providing a simple and extensible interface for neural data acquisition and control, our work helps accelerate rapid prototyping and experimental iteration in BCI research.
+BciPy is positioned for near-term impact within the BCI community due to its emphasis on reproducibility, clear documentation, and compatibility with common hardware (e.g. Wearable Sensing, Tobii), software (e.g. Linux, Windows and MacOS) and analysis tools. By providing a simple and extensible interface for neural data acquisition and control, our work helps accelerate rapid prototyping and experimental iteration in BCI research.
 
 # BciPy Overview
 
@@ -152,20 +153,20 @@ The data acquisition module in BciPy has two primary responsibilities: passively
 The approach for combining multimodal data sources is described briefly. Under the conditional independence assumption, a Bayesian probabilistic algorithm that fuses information from multiple sources of evidence is employed to achieve multimodal classification. The posterior probabilities for user intent ($\theta$) given biosignals data ($x_{1:s}$) are computed using Bayes' rule as follows:
 
 $$
-p(\theta \mid x_{1:s}) \propto p(\theta) \prod_{j=1}^{s} p(x_j \mid \theta) \tag{1}
+p(\theta \mid x_{1:s}) \propto p(\theta) \prod_{j=1}^{s} p(x_j \mid \theta) \tag{1},
 $$
 
-Where $s$ denotes the number of sources ($s > 1$ for multimodal) and $p(\theta)$ is the class prior.
+where $s$ denotes the number of sources ($s > 1$ for multimodal) and $p(\theta)$ is the class prior.
 
 In addition to the EEG signal model developed in BciPy 1.0, BciPy 2.0 introduces a gaze model for classification of eye gaze trajectory data that can be acquired in parallel with the EEG data stream through an eye tracker. Both the EEG and gaze models inherit the same Signal Model structure and are compatible with the scikit-learn estimators API [@Pedregosa:2011].
 
 The provided gaze model assumes positional and temporal dependence in gaze data. It is also assumed that the gaze trajectory ($x_g$) obeys a Gaussian Process distribution, that is:
 
 $$
-p(x_g \mid \theta) \sim \mathcal{GP}(\mu_{g,\theta}, \Sigma_g) \tag{2}
+p(x_g \mid \theta) \sim \mathcal{GP}(\mu_{g,\theta}, \Sigma_g) \tag{2},
 $$
 
-Where $\mu_{g,\theta}$, $\Sigma_g$ are the multidimensional means and covariances corresponding to the class labels. Details of the multimodal fusion method for EEG and gaze data are further described in the repository.
+where $\mu_{g,\theta}$ and $\Sigma_g$ are the multidimensional means and covariances corresponding to the class labels, respectively. Details of the multimodal fusion method for EEG and gaze data are further described in the repository.
 
 BciPy 2.0 expands upon the language modeling capabilities of BciPy 1.0 and removes the language model (LM) module from the previous Docker image, opting instead for direct function calls in Python. The goal of the language model remains the same as the prior version—to accelerate the text input task by providing additional evidence to the system. The LM module takes the context, or the text that the user has written so far, and produces an initial likelihood distribution over the system's symbol set. This distribution can be used to present more likely characters to the user sooner, in a paradigm like RSVP Keyboard [@Orhan:2012], or simply to fuse with the evidence gathered from the user (e.g., EEG, gaze, etc.).
 
@@ -173,9 +174,17 @@ The underlying models that drive the predictions are also modular. BciPy 2.0 com
 
 # BciPy Simulator
 
-A major advancement in BciPy 2.0 is the introduction of the simulator module, which allows researchers to use previously recorded typing data to systematically evaluate how changes in parameters, signal models, and language models impact typing performance. This module supports tasks such as customizing experiment parameters, conducting large-scale comparisons of language model implementations, and testing multimodal evidence fusion strategies. Additionally, the simulator framework can be extended to train new EEG signal models.
+A major advancement in BciPy 2.0 is the introduction of the simulator module. This module allows researchers to use previously recorded typing data to systematically evaluate how changes in parameters, signal models, and language models impact typing performance. The simulator supports tasks such as customizing experiment parameters, conducting large-scale comparisons of language model implementations, and testing multimodal evidence fusion strategies. Additionally, the simulator framework can be extended to train new EEG signal models.
 
-As illustrated in Figure 4, the simulator architecture consists of several key components: the simulation Task (e.g., Copy Phrase), a `Task Runner` for managing multiple iterations, a `Data Engine` for loading and querying data samples, a `Data Processor` for formatting data for classification, and a Sampler that selects samples from the `Data Engine` using user-defined strategies. Metrics are collected for each run and summarized across all runs to assess performance. The simulator provides both a graphical user interface for designing simulation parameters and input sources, as well as a command line interface for scripting and automation.
+As illustrated in Figure 4, the simulator architecture consists of several key components: 
+
+- The `Simulation Task` (e.g., Copy Phrase), 
+- A `Task Runner` for managing multiple iterations,
+- A `Data Engine` for loading and querying data samples, 
+- A `Data Processor` for formatting data for classification, and 
+- A `Sampler` that selects samples from the `Data Engine` using user-defined strategies. 
+
+The simulator collects metrics for each run and summarizes across all runs to assess performance. The simulator provides both a graphical user interface for designing simulation parameters and input sources, as well as a command line interface for scripting and automation.
 
 ## Figure 4
 
