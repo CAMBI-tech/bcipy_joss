@@ -71,7 +71,7 @@ affiliations:
 - name: Department of Computer Science, Michigan Technological University, Houghton, MI, USA
   index: 5
 
-date: 24 August 2025
+date: 07 April 2026
 
 bibliography: paper.bib
 
@@ -79,36 +79,25 @@ bibliography: paper.bib
 
 # Summary
 
-Advances in Brain-Computer Interface (BCI) research require software that evolves alongside new scientific discoveries and experimental needs. BciPy 2.0 is a major update and expansion of the original BciPy 1.0, developed in response to recent progress in the field. This release is designed to address the increasing demands of BCI research, with a particular focus on communication BCIs (cBCIs). BciPy 2.0 offers robust support for multimodal data acquisition and fusion, advanced simulation capabilities, flexible task orchestration, and standardized data sharing—all within the Python ecosystem. The system prioritizes modularity and extensibility, incorporating features informed by current research trends. This manuscript provides a comprehensive overview of BciPy 2.0, including system architecture, validation results, and practical usage examples.
+Advances in Brain-Computer Interface (BCI) research require software that evolves alongside new scientific discoveries and experimental needs. BciPy 2.0 is a major update and expansion of the original BciPy 1.0, developed in response to recent progress in the field. This release addresses growing demands for multimodal integration, offline simulation, and reproducible experimental protocols, with a particular focus on communication BCIs (cBCIs). BciPy 2.0 offers robust support for multimodal data acquisition and fusion, advanced simulation capabilities, flexible task orchestration, and standardized data sharing—all within the Python ecosystem. The system prioritizes modularity and extensibility, incorporating features informed by current research trends. This manuscript provides a comprehensive overview of BciPy 2.0, including system architecture and practical usage examples.
 
 # Statement of Need
 
 Software is the foundation of BCI research, serving as the bridge between biosignals and real-time applications that enable computer-mediated control. Reliable and adaptable tools are crucial for improving system accuracy, reducing latency, and expanding functionality—especially for communication BCI (cBCI) applications. These improvements bring cBCIs closer to practical, real-world use, with significant implications for healthcare, accessibility, and human-computer interaction.
 
-Current trends in BCI research include increased interest in multimodal signal acquisition and integration, as well as the use of advanced modeling techniques to improve classification and inference. The scientific community is also prioritizing data practices that follow the FAIR principles — Findable, Accessible, Interoperable, and Reusable [@Wilkinson:2016] — which BciPy 2.0 is built to support. Additionally, some dependencies and Python versions used in BciPy 1.0 are now deprecated or incompatible with modern tools. Future releases will continue to enhance interoperability with popular scientific libraries and features, and provide expanded support for experiment management.
+Current trends in BCI research include increased interest in multimodal signal acquisition and integration, as well as the use of advanced modeling techniques to improve classification and inference. The scientific community is also prioritizing data practices that follow the FAIR principles — Findable, Accessible, Interoperable, and Reusable [@Wilkinson:2016] — which BciPy 2.0 is built to support. Additionally, some dependencies and Python versions used in BciPy 1.0 are now deprecated or incompatible with modern tools, motivating the architectural changes in BciPy 2.0. Future releases will continue to enhance interoperability with popular scientific libraries and features, and provide expanded support for experiment management.
 
 # State of the Field
 
-A large portion of the noninvasive BCI field is build on the BCI2000 software [@Schalk:2004]. Written in C++, BCI2000 provides a framework for a broad range of BCI applications, such as computer cursor control and text input. OpenViBE [@Renard:2010] provides a modular BCI framework, with similar goals to BCI2000, but with added support and tools for virtual reality (VR) integration. Meanwhile, BciPy focuses specifically on the application of text input for communication, with BciPy 2.0 including expanded functionality such as support for multimodal data acquisition and language modeling.
+A large portion of the noninvasive BCI field relies on custom-built software or established frameworks such as BCI2000 [@Schalk:2004] and OpenViBE [@Renard:2010], which provide broad support for applications like cursor control and virtual reality (VR) integration but are written in C++ and oriented toward general BCI paradigms rather than communication-specific workflows. More recent Python packages such as PyBCI [@Booth:2023], MetaBCI [@Mei:2024], and PyNoetic [@Singh:2025] offer EEG signal acquisition, artifact handling, and interface control, but lack integrated support for multimodal evidence fusion, language modeling, and offline simulation. BciPy occupies a distinct niche by focusing specifically on text input for communication BCIs, combining these capabilities within a single Python framework. Python's dominance in scientific computing and machine learning allows BciPy to leverage a broad ecosystem of libraries and tools, making it accessible to researchers who may not have extensive programming experience.
 
-Additional more recent Python packages such as PyBCI [@Booth:2023], MetaBCI [@Mei:2024], and PyNoetic [@Singh:2025] implement functionality for EEG signal acquisition and modeling, detection of motion and interference artifacts, and interface control through BCIs. However, they still lack the multimodal fusion and language modeling support we present in BciPy.
+# Software Design
 
-# Research Impact Statement
+BciPy supports installation on the latest versions of macOS, Linux, and Windows, with step-by-step instructions provided in the documentation and reproducible builds verified through continuous integration with GitHub Actions. Each submodule includes its own `README.md`, runnable demos, and unit tests to help users get started. Users can interact with BciPy through the client interface, by importing the package in Python, or via the PyQt6-based GUI (`BCInterface.py`, see \autoref{fig:gui}). The choice of interface depends on the user's coding experience and the level of customization required for their experiments.
 
-The BciPy repository has made BCI research more accessible through a modular, extensible, real-time Python interface designed for practical use and reproducible experimentation. The software and accompanying documentation have been released publicly, allowing researchers to directly run the system and adapt the interface for their own BCI studies by adding new paradigms and processing methods. The repository includes example pipelines, standardized data handling utilities, and integration with common Python scientific libraries, which has helped lower the technical barrier for working with neural signals in real time.
-
-Evidence of use is reflected in 76,000 estimated downloads (from PyPI) and 39 external forks that adapt the interface for related BCI experiments and prototyping workflows. The BciPy Python library has also been used internally by 18 developers and by collaborators to build and test closed-loop BCI applications, demonstrating that the interface is stable enough for real experimental setups rather than only proof-of-concept demonstrations. Since its initial public release [@Memmott:2021], BciPy has gained wide adoption in the BCI community, with 145 GitHub stars, approximately 30 citations (26 via ResearchGate and Google Scholar, and four from preprints). There are also more than 10 peer-reviewed publications that have used BciPy in control and clinical studies (Please review `README.md` for publications through 2025). Early adoption of BciPy 2.0 is evident, with five published studies utilizing its redesigned architecture as of March 2026. The Python BCI ecosystem has also grown, with several complementary libraries released or updated [@Zhu:2024; @Booth:2023; @Singh:2025; @Mei:2024].
-
-BciPy is positioned for near-term impact within the BCI community due to its emphasis on reproducibility, clear documentation, and compatibility with common hardware, software, and analysis tools. By providing a simple and extensible interface for neural data acquisition and control, our work helps accelerate rapid prototyping and experimental iteration in BCI research.
-
-# BciPy Overview
-
-BciPy is designed for ease of use and flexibility, supporting installation on the latest versions of macOS, Linux, and Windows. Step-by-step installation instructions are provided in the documentation, and reproducible builds are demonstrated via GitHub Actions workflows (`.github/workflows/main.yml`). Each submodule includes its own `README.md`, runnable demos, and unit tests to help users get started. Users can interact with BciPy through the client interface, by importing the package in Python, or via the PyQt6-based GUI (`BCInterface.py`, see \autoref{fig:gui}). The choice of interface depends on the user's coding experience and the level of customization required for their experiments.
-
-Experiment parameters are defined in JSON format, with default templates available in `bcipy/parameters/`. These parameters can be edited directly in the JSON files or using the graphical parameter editor shown in \autoref{fig:paramedit}, allowing for easy personalization and adaptation to a wide range of research needs. Data collected with BciPy can be exported to multiple formats—including BDF, EDF, BrainVision, Brain Imaging Data Structure (BIDS), and MNE—for external analysis or sharing, supporting FAIR data principles. Compression options are available to facilitate data sharing and storage.
+Experiment parameters are defined in JSON format, with default templates available in `bcipy/parameters/`. These parameters can be edited directly in the JSON files or through the graphical parameter editor shown in \autoref{fig:paramedit}, allowing researchers to configure experiment conditions upfront and reduce input errors. Data collected with BciPy can be exported to multiple formats—including BDF, EDF, BrainVision, Brain Imaging Data Structure (BIDS), and MNE—for external analysis or sharing, with compression options to facilitate storage. These export capabilities support FAIR data principles and interoperability with common analysis tools.
 
 BciPy leverages several scientific libraries to provide its core features, including PsychoPy, PyLSL, scikit-learn, transformers, NumPy, SciPy, Pandas, and MNE [@Peirce:2007; @Kothe:2025; @Wolf:2020; @VanDerWalt:2011; @Virtanen:2020; @McKinney:2011; @Gramfort:2014]. The full list of dependencies is maintained in the `pyproject.toml` file.
-
 
 <!-- Add Figure1 from static/ -->
 ![**BciPy GUI.** The BciPy GUI can be used for editing or loading parameters, training a `SignalModel`, defining a new experiment (this provides another GUI), or running an experiment or `Task`.\label{fig:gui}](static/Figure1.png)
@@ -116,7 +105,19 @@ BciPy leverages several scientific libraries to provide its core features, inclu
 <!-- Add Figure2 from static/ -->
 ![**BciPy Parameter Editor.** The BciPy Parameter Editing GUI can be used for editing, saving, or searching a parameters file. This can help prevent input errors and facilitate defining parameters for experiment conditions upfront. If parameters are changed, a panel under Changed Parameters (shown above) will display with the parameter changed and what value it’s been updated to. This can help prevent accidental changes or debug issues with a set of parameters.\label{fig:paramedit}](static/Figure2.png)
 
-# Task / Experiment Support
+# Research Impact Statement
+
+The BciPy repository has made BCI research more accessible through a modular, extensible, real-time Python interface designed for practical use and reproducible experimentation. The software and accompanying documentation have been released publicly, allowing researchers to directly run the system and adapt the interface for their own BCI studies by adding new paradigms and processing methods. The repository includes example pipelines, standardized data handling utilities, and integration with common Python scientific libraries, which has helped lower the technical barrier for working with neural signals in real time.
+
+Evidence of use is reflected in 76,000 estimated downloads (from PyPI) and 39 external forks that adapt the interface for related BCI experiments and prototyping workflows. The BciPy Python library has also been used internally by 18 developers and by collaborators to build and test closed-loop BCI applications, demonstrating that the interface is stable enough for real experimental setups rather than only proof-of-concept demonstrations. Since its initial public release [@Memmott:2021], BciPy has gained wide adoption in the BCI community, with 145 GitHub stars, approximately 30 citations across peer-reviewed and preprint venues. There are also more than 10 peer-reviewed publications that have used BciPy in control and clinical studies (a full list is maintained in the repository `README.md`). Early adoption of BciPy 2.0 is evident, with five published studies utilizing its redesigned architecture as of March 2026. The Python BCI ecosystem has also grown, with several complementary libraries released or updated [@Zhu:2024; @Booth:2023; @Singh:2025; @Mei:2024].
+
+BciPy is positioned for near-term impact within the BCI community due to its emphasis on reproducibility, clear documentation, and compatibility with common hardware, software, and analysis tools. By providing a simple and extensible interface for neural data acquisition and control, our work helps accelerate rapid prototyping and experimental iteration in BCI research.
+
+# BciPy 2.0 Overview
+
+BciPy 2.0 is a major update to the original BciPy 1.0, with significant improvements in architecture, functionality, and usability. The following sections describe the key additions in detail: task and experiment orchestration, multimodal data acquisition and evidence fusion, and a new simulation module for offline evaluation of system parameters.
+
+# Task & Experiment Support
 
 BciPy manages the execution of experimental tasks using the `SessionOrchestrator` class (see \autoref{fig:orchestrator}), which ensures tasks are run in the correct order and that all data are properly persisted. Researchers can run individual tasks, such as Calibration, directly via the client, or define complete experimental protocols for reproducible studies.
 
@@ -127,12 +128,11 @@ In addition to standard Tasks, protocols can include `Actions`, which are lightw
 <!-- Add Figure3 from static/ -->
 ![**Session Orchestration.** The `SessionOrchestrator` executes a sequence of `Tasks` defined in an experiment protocol. Each task is initialized with the current parameters and any data needed from previous tasks. The orchestrator manages the flow of data between tasks and ensures that each task is executed in the correct order. The `SessionOrchestrator`, once initialized with parameters and optional metadata, is ready for tasks to be added using the `add_tasks()` or `add_task()` methods. These can be defined and loaded using the `experiment.json` and defined protocol or manually added to the `SessionOrchestrator`. The experiment can then be run using `execute()`. This method loops over `Tasks`, providing all parameters and a log needed for operation. The `Tasks` are then responsible for initializing any objects required for operation, such as the `DataAcquisitionClient`, `Display`, or `LanguageModel`. After each task and the entire execution loop, the data persists on disk.\label{fig:orchestrator}](static/Figure3.png)
 
-
 # Multimodal Data Acquisition and Fusion
 
 BciPy 2.0 introduces support for multimodal data acquisition and evidence fusion. The system can consider information from multiple devices when making typing decisions. The BciPy 1.0 data acquisition module supported TCP-based connections as well as connections through LabStreamingLayer (LSL) [@Kothe:2025]. After extensive testing, we leaned more heavily on LSL to support multimodal acquisition in BciPy 2.0. LSL is well-supported across the industry, with many devices providing compatible drivers. This decision allowed us to drastically simplify the acquisition module while increasing functionality.
 
-The data acquisition module in BciPy has two primary responsibilities: passively recording streaming device data to disk for later processing, and querying data in real time for use in a typing task. The previous BciPy 1.0 had an extremely flexible query interface, allowing any data from the start of the session to be used for decision-making.
+The data acquisition module in BciPy has two primary responsibilities: passively recording streaming device data to disk for later processing, and querying data in real time for use in a typing task. BciPy 2.0 streamlines the query interface from BciPy 1.0, replacing the previous unconstrained session-wide data access with a more efficient, event-driven approach suited to multimodal workflows.
 
 The approach for combining multimodal data sources is described briefly. Under the conditional independence assumption, a Bayesian probabilistic algorithm that fuses information from multiple sources of evidence is employed to achieve multimodal classification. The posterior probabilities for user intent ($\theta$) given biosignals data ($x_{1:s}$) are computed using Bayes' rule as follows:
 
@@ -154,19 +154,21 @@ where $\mu_{g,\theta}$ and $\Sigma_g$ are the multidimensional means and shared 
 
 BciPy 2.0 expands upon the language modeling capabilities of BciPy 1.0 and removes the language model (LM) module from the previous Docker image, opting instead for direct function calls in Python. The goal of the language model remains the same as the prior version—to accelerate the text input task by providing additional evidence to the system. The LM module takes the context, or the text that the user has written so far, and produces an initial likelihood distribution over the system's symbol set. This distribution can be used to present more likely characters to the user sooner, in a paradigm like RSVP Keyboard [@Orhan:2012], or simply to fuse with the evidence gathered from the user (e.g., EEG, gaze, etc.).
 
-The underlying models that drive the predictions are also modular. BciPy 2.0 comes with several built-in examples, but LM model classes can easily be created or modified to better suit users' needs. For example, BciPy 2.0 introduces inference by large language models (LLMs) via the TextSlinger API, which allows the use of causal transformer models from Hugging Face using the search algorithm from @Gaines:2025. BciPy 2.0 has wrapper classes that handle the initialization of TextSlinger models for seamless use by the rest of BciPy. In addition to the causal LLM, BciPy 2.0 supports TextSlinger's n-gram language model class, which leverages the KenLM package [@Heafield:2011]. BciPy 2.0 contains a Uniform Language Model class, which returns an equal probability distribution among all characters in the symbol set, for instances where researchers may want to remove the language model influence either as a control or as an independent variable in a research study. This class also serves as an example of the methods that are required to create custom language model classes.
+The underlying models that drive the predictions are modular, and custom LM classes can be created or modified to suit users' needs. BciPy 2.0 introduces inference by large language models (LLMs) via the TextSlinger API, which allows the use of causal transformer models from Hugging Face using the search algorithm from @Gaines:2025. Wrapper classes handle the initialization of TextSlinger models for seamless integration with BciPy. In addition to the causal LLM, BciPy 2.0 supports TextSlinger's n-gram language model class, which leverages the KenLM package [@Heafield:2011].
+
+BciPy 2.0 also provides a Uniform Language Model class, which returns an equal probability distribution among all characters in the symbol set. This is useful when researchers want to remove language model influence as a control condition or independent variable, and it serves as an example of the methods required to create custom language model classes.
 
 # BciPy Simulator
 
 A major advancement in BciPy 2.0 is the introduction of the simulator module. This module allows researchers to use previously recorded typing data to systematically evaluate how changes in parameters, signal models, and language models impact typing performance. The simulator supports tasks such as customizing experiment parameters, conducting large-scale comparisons of language model implementations, and testing multimodal evidence fusion strategies. Additionally, the simulator framework can be extended to train new EEG signal models.
 
-As illustrated in \autoref{fig:simulator}, the simulator architecture consists of several key components: 
+As illustrated in \autoref{fig:simulator}, the simulator architecture consists of several key components:
 
-- The `Simulation Task` (e.g., Copy Phrase), 
+- The `Simulation Task` (e.g., Copy Phrase),
 - A `Task Runner` for managing multiple iterations,
-- A `Data Engine` for loading and querying data samples, 
-- A `Data Processor` for formatting data for classification, and 
-- A `Sampler` that selects samples from the `Data Engine` using user-defined strategies. 
+- A `Data Engine` for loading and querying data samples,
+- A `Data Processor` for formatting data for classification, and
+- A `Sampler` that selects samples from the `Data Engine` using user-defined strategies.
 
 The simulator collects metrics for each run and summarizes across all runs to assess performance. The simulator provides both a graphical user interface for designing simulation parameters and input sources, as well as a command line interface for scripting and automation.
 
@@ -174,13 +176,11 @@ The simulator collects metrics for each run and summarizes across all runs to as
 ![**BciPy Simulator Architecture.** The BciPy Simulator consists of several components that work together to simulate a typing task using previously recorded data. The `Simulation Task` defines the task to be performed, such as Copy Phrase. The `Task Runner` manages the execution of multiple iterations of the task, collecting metrics for each run. The `Data Engine` loads and queries data samples from the provided dataset, while the `Data Processor` prepares the data to match the input format required by the classification model. The `Sampler` draws samples from the `Data Engine` based on a user-selected sampling strategy, such as random sampling or sequential sampling. The `Signal Model` and `Language Model` are used to classify the sampled data and provide predictions, respectively. Finally, the collected metrics are summarized across all runs to evaluate performance.\label{fig:simulator}](static/Figure4.png)
 
 # References
-
-See `paper.bib` for references.
+<!-- Add references from paper.bib -->
 
 # AI usage disclosure
 
 The manuscript was written by the authors with the assistance of AI tools, including ChatGPT, Claude, Grammarly, and GitHub Copilot. The AI tools were used to help edit text and to assist with code review, documentation, testing, and formatting. The majority of BciPy core functionality was developed by the authors exclusively. The authors reviewed and edited all content generated by the AI tools to ensure accuracy and coherence.
-
 
 # Acknowledgements
 
