@@ -66,7 +66,7 @@ affiliations:
   index: 2
 - name: Oregon Clinical and Translational Research Institute, Oregon Health & Science University, Portland, OR, USA
   index: 3
-- name: Department of Computer and Electrical Engineering, Northeastern University, Boston, MA, USA
+- name: Department of Electrical and Computer Engineering, Northeastern University, Boston, MA, USA
   index: 4
 - name: Department of Computer Science, Michigan Technological University, Houghton, MI, USA
   index: 5
