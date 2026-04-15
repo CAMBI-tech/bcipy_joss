@@ -39,7 +39,7 @@ authors:
 - name: Dylan Gaines
   orcid: 0000-0002-2747-7680
   equal-contrib: true
-  affiliation: 5
+  affiliation: "5, 6"
 - name: Daniel Klee
   orcid: 0000-0003-2992-7662
   equal-contrib: true
@@ -70,8 +70,10 @@ affiliations:
   index: 4
 - name: Department of Computer Science, Michigan Technological University, Houghton, MI, USA
   index: 5
+- name: Department of Computer Science, Kennesaw State University, Marietta, GA, USA
+  index: 6
 
-date: 07 April 2026
+date: 15 April 2026
 
 bibliography: paper.bib
 
