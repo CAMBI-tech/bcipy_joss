@@ -122,14 +122,14 @@ BciPy 2.0 is a major update to the original BciPy 1.0, with significant improvem
 
 # Task & Experiment Support
 
-BciPy manages the execution of experimental tasks using the `SessionOrchestrator` class (see \autoref{fig:orchestrator}), which ensures tasks are run in the correct order and that all data are properly persisted. Researchers can run individual tasks, such as Calibration, directly via the client, or define complete experimental protocols for reproducible studies.
+BciPy manages the execution of experimental `Task`s using the `SessionOrchestrator` class (see \autoref{fig:orchestrator}), which ensures `Task`s are run in the correct order and that all data are properly persisted. Researchers can run individual `Task`s, such as `Calibration`, directly via the client, or define complete experimental protocols for reproducible studies.
 
-Experiment protocols are specified in the `experiments.json` file as ordered sequences of Tasks. The orchestrator reads this protocol, executes each Task sequentially, and logs all relevant information. Each Task writes its own logs to a dedicated subdirectory for easy tracking and analysis.
+Experiment protocols are specified in the `experiments.json` file as ordered sequences of `Task`s. The orchestrator reads this protocol, executes each `Task` sequentially, and logs all relevant information. Each `Task` writes its own logs to a dedicated subdirectory for easy tracking and analysis.
 
-In addition to standard Tasks, protocols can include `Actions`, which are lightweight subclasses of `Task`. Actions do not require display or data acquisition and are useful for simple steps such as prompting the researcher with a dialog or indicating experiment progress. For example, an `IntertaskAction` can be inserted to request input from the researcher before continuing to the next Task in the sequence.
+In addition to standard `Task`s, protocols can include `Action`s, which are lightweight subclasses of `Task`. `Action`s do not require display or data acquisition and are useful for simple steps such as prompting the researcher with a dialog or indicating experiment progress. For example, an `IntertaskAction` can be inserted to request input from the researcher before continuing to the next `Task` in the sequence.
 
 <!-- Add Figure3 from static/ -->
-![**Session Orchestration.** The `SessionOrchestrator` executes a sequence of `Tasks` defined in an experiment protocol. Each task is initialized with the current parameters and any data needed from previous tasks. The orchestrator manages the flow of data between tasks and ensures that each task is executed in the correct order. The `SessionOrchestrator`, once initialized with parameters and optional metadata, is ready for tasks to be added using the `add_tasks()` or `add_task()` methods. These can be defined and loaded using the `experiment.json` and defined protocol or manually added to the `SessionOrchestrator`. The experiment can then be run using `execute()`. This method loops over `Tasks`, providing all parameters and a log needed for operation. The `Tasks` are then responsible for initializing any objects required for operation, such as the `DataAcquisitionClient`, `Display`, or `LanguageModel`. After each task and the entire execution loop, the data persists on disk.\label{fig:orchestrator}](static/Figure3.png){width=50%}
+![**Session Orchestration.** The `SessionOrchestrator` executes a sequence of `Task`s defined in an experiment protocol. Each `Task` is initialized with the current parameters and any data needed from previous `Task`s. The orchestrator manages the flow of data between `Task`s and ensures that each `Task` is executed in the correct order. The `SessionOrchestrator`, once initialized with parameters and optional metadata, is ready for `Task`s to be added using the `add_tasks()` or `add_task()` methods. These can be defined and loaded using the `experiment.json` and defined protocol or manually added to the `SessionOrchestrator`. The experiment can then be run using `execute()`. This method loops over `Task`s, providing all parameters and a log needed for operation. The `Task`s are then responsible for initializing any objects required for operation, such as the `DataAcquisitionClient`, `Display`, or `LanguageModel`. After each `Task` and the entire execution loop, the data persists on disk.\label{fig:orchestrator}](static/Figure3.png){width=50%}
 
 # Multimodal Data Acquisition and Fusion
 
@@ -145,7 +145,7 @@ $$
 
 where $s$ denotes the number of sources ($s > 1$ for multimodal) and $p(\theta)$ is the class prior.
 
-In addition to the EEG signal model developed in BciPy 1.0, BciPy 2.0 introduces a gaze model for classification of eye gaze trajectory data that can be acquired in parallel with the EEG data stream through an eye tracker. Both the EEG and gaze models inherit the same Signal Model structure and are compatible with the scikit-learn estimators API [@Pedregosa:2011].
+In addition to the EEG signal model developed in BciPy 1.0, BciPy 2.0 introduces a gaze model for classification of eye gaze trajectory data that can be acquired in parallel with the EEG data stream through an eye tracker. Both the EEG and gaze models inherit the same `SignalModel` structure and are compatible with the scikit-learn estimators API [@Pedregosa:2011].
 
 The provided gaze model assumes positional and temporal dependence in gaze data. It is also assumed that the gaze trajectory ($x_g$) obeys a Gaussian Process distribution, that is:
 
@@ -157,9 +157,9 @@ where $\mu_{g,\theta}$ and $\Sigma_g$ are the multidimensional means and shared 
 
 BciPy 2.0 expands upon the language modeling capabilities of BciPy 1.0 and removes the language model (LM) module from the previous Docker image, opting instead for direct function calls in Python. The goal of the language model remains the same as the prior version—to accelerate the text input task by providing additional evidence to the system. The LM module takes the context, or the text that the user has written so far, and produces an initial likelihood distribution over the system's symbol set. This distribution can be used to present more likely characters to the user sooner, in a paradigm like RSVP Keyboard [@Orhan:2012], or simply to fuse with the evidence gathered from the user (e.g., EEG, gaze, etc.).
 
-The underlying models that drive the predictions are modular, and custom LM classes can be created or modified to suit users' needs. BciPy 2.0 introduces inference by large language models (LLMs) via the TextSlinger API, which allows the use of causal transformer models from Hugging Face using the search algorithm from @Gaines:2025. Wrapper classes handle the initialization of TextSlinger models for seamless integration with BciPy. In addition to the causal LLM, BciPy 2.0 supports TextSlinger's n-gram language model class, which leverages the KenLM package [@Heafield:2011].
+The underlying models that drive the predictions are modular, and custom LM classes can be created or modified to suit users' needs. BciPy 2.0 introduces inference by large language models (LLMs) via the TextSlinger API, which allows the use of causal transformer models from Hugging Face using the search algorithm from @Gaines:2025. Wrapper classes such as `CausalLanguageModelAdapter` handle the initialization of TextSlinger models for seamless integration with BciPy. In addition to the causal LLM, BciPy 2.0 supports TextSlinger's `NGramLanguageModel` class, which leverages the KenLM package [@Heafield:2011].
 
-BciPy 2.0 also provides a Uniform Language Model class, which returns an equal probability distribution among all characters in the symbol set. This is useful when researchers want to remove language model influence as a control condition or independent variable, and it serves as an example of the methods required to create custom language model classes.
+BciPy 2.0 also provides a `UniformLanguageModel` class, which returns an equal probability distribution among all characters in the symbol set. This is useful when researchers want to remove language model influence as a control condition or independent variable, and it serves as an example of the methods required to create custom `LanguageModel` subclasses.
 
 # BciPy Simulator
 
@@ -167,16 +167,16 @@ A major advancement in BciPy 2.0 is the introduction of the simulator module. Th
 
 As illustrated in \autoref{fig:simulator}, the simulator architecture consists of several key components:
 
-- The `Simulation Task` (e.g., Copy Phrase),
-- A `Task Runner` for managing multiple iterations,
-- A `Data Engine` for loading and querying data samples,
-- A `Data Processor` for formatting data for classification, and
-- A `Sampler` that selects samples from the `Data Engine` using user-defined strategies.
+- The `SimulatorTask` (e.g., `CopyPhrase`),
+- A `TaskRunner` for managing multiple iterations,
+- A `DataEngine` for loading and querying data samples,
+- A `DataProcessor` for formatting data for classification, and
+- A `Sampler` that selects samples from the `DataEngine` using user-defined strategies.
 
 The simulator collects metrics for each run and summarizes across all runs to assess performance. The simulator provides both a graphical user interface for designing simulation parameters and input sources, as well as a command line interface for scripting and automation.
 
 <!-- Add Figure4 from static/ -->
-![**BciPy Simulator Architecture.** The BciPy Simulator consists of several components that work together to simulate a typing task using previously recorded data. The `Simulation Task` defines the task to be performed, such as Copy Phrase. The `Task Runner` manages the execution of multiple iterations of the task, collecting metrics for each run. The `Data Engine` loads and queries data samples from the provided dataset, while the `Data Processor` prepares the data to match the input format required by the classification model. The `Sampler` draws samples from the `Data Engine` based on a user-selected sampling strategy, such as random sampling or sequential sampling. The `Signal Model` and `Language Model` are used to classify the sampled data and provide predictions, respectively. Finally, the collected metrics are summarized across all runs to evaluate performance.\label{fig:simulator}](static/Figure4.png)
+![**BciPy Simulator Architecture.** The BciPy Simulator consists of several components that work together to simulate a typing task using previously recorded data. The `SimulatorTask` defines the task to be performed, such as `CopyPhrase`. The `TaskRunner` manages the execution of multiple iterations of the task, collecting metrics for each run. The `DataEngine` loads and queries data samples from the provided dataset, while the `DataProcessor` prepares the data to match the input format required by the classification model. The `Sampler` draws samples from the `DataEngine` based on a user-selected sampling strategy, such as random sampling or sequential sampling. The `SignalModel` and `LanguageModel` are used to classify the sampled data and provide predictions, respectively. Finally, the collected metrics are summarized across all runs to evaluate performance.\label{fig:simulator}](static/Figure4.png)
 
 # AI usage disclosure
 
